@@ -4,6 +4,8 @@ import { Categories } from './components/Categories';
 import { Sort } from './components/Sort';
 import { PizzaBlock } from './components/PizzaBlock';
 
+import pizzas from './assets/pizza.json';
+
 export const App = () => {
   return (
     <div className='wrapper'>
@@ -16,17 +18,16 @@ export const App = () => {
           </div>
           <h2 className='content__title'>Всі піци</h2>
           <div className='content__items'>
-            <PizzaBlock title='Неаполітана' price={140} />
-            <PizzaBlock title='Чотири сири' price={155} />
-            <PizzaBlock title='Молінара' price={145} />
-            <PizzaBlock title='Поло' price={150} />
-            <PizzaBlock title='Вегетаріано' price={130} />
-            <PizzaBlock title='Палермо' price={140} />
-            <PizzaBlock title='Цезар' price={155} />
-            <PizzaBlock title='Д`явола' price={140} />
-            <PizzaBlock title='Пеппероні' price={140} />
-            <PizzaBlock title='Гавайська' price={145} />
-            <PizzaBlock title='Карбонара' price={150} />
+            {pizzas.map(obj => (
+              <PizzaBlock
+                id={obj.id}
+                title={obj.title}
+                price={obj.price}
+                imageUrl={obj.imageUrl}
+                sizes={obj.sizes}
+                types={obj.types}
+              />
+            ))}
           </div>
         </div>
       </div>

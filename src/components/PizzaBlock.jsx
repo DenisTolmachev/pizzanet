@@ -1,37 +1,39 @@
 import { useState } from 'react';
 
-export const PizzaBlock = ({ title, price }) => {
-  const [pizzaCount, setPizzaCount] = useState(0);
-
-  const onClickAddButton = () => {
-    setPizzaCount(pizzaCount + 1);
-  };
+export const PizzaBlock = ({ id, title, price, imageUrl, sizes, types }) => {
+  const [activeType, setActiveType] = useState(0);
+  const [activeSize, setActiveSize] = useState(0);
+  const typeNames = ['тонке', 'традиційне'];
 
   return (
     <div className='pizza-block'>
-      <img
-        className='pizza-block__image'
-        src='https://ambar.net.ua/image/data/tovar/3378.jpg'
-        alt='Pizza'
-      />
+      <img className='pizza-block__image' src={imageUrl} alt='Pizza' />
       <h4 className='pizza-block__title'>{title}</h4>
       <div className='pizza-block__selector'>
         <ul>
-          <li className='active'>тонке</li>
-          <li>традиційне</li>
+          {types.map(type => (
+            <li
+              onClick={() => setActiveType(type)}
+              className={activeType === type ? 'active' : ''}
+            >
+              {typeNames[type]}
+            </li>
+          ))}
         </ul>
         <ul>
-          <li className='active'>26 см.</li>
-          <li>30 см.</li>
-          <li>40 см.</li>
+          {sizes.map((size, i) => (
+            <li
+              onClick={() => setActiveSize(i)}
+              className={activeSize === i ? 'active' : ''}
+            >
+              {size} см.
+            </li>
+          ))}
         </ul>
       </div>
       <div className='pizza-block__bottom'>
         <div className='pizza-block__price'>от {price} ₴</div>
-        <button
-          onClick={onClickAddButton}
-          className='button button--outline button--add'
-        >
+        <button className='button button--outline button--add'>
           <svg
             width='12'
             height='12'
@@ -45,7 +47,7 @@ export const PizzaBlock = ({ title, price }) => {
             />
           </svg>
           <span>Додати</span>
-          <i>{pizzaCount}</i>
+          <i>0</i>
         </button>
       </div>
     </div>
