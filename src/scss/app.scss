@@ -31,6 +31,9 @@ body {
   }
 
   &__top {
+    //display: grid;
+    //align-items: center;
+    //grid-template-columns: 9fr 3fr;
     display: flex;
     align-items: center;
     justify-content: space-between;
