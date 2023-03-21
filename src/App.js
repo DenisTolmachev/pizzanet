@@ -20,6 +20,7 @@ export const App = () => {
           <div className='content__items'>
             {pizzas.map(obj => (
               <PizzaBlock
+                key={obj.id}
                 id={obj.id}
                 title={obj.title}
                 price={obj.price}
