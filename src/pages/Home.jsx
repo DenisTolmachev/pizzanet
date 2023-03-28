@@ -4,7 +4,7 @@ import { Skeleton } from '../components/PizzaBlock/Skeleton';
 import { PizzaBlock } from '../components/PizzaBlock/PizzaBlock';
 import { useEffect, useState } from 'react';
 
-export const Home = () => {
+export const Home = ({ searchValue }) => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoryId, setCategoryId] = useState(0);
@@ -19,9 +19,10 @@ export const Home = () => {
     const sortBy = sortType.sortProperty.replace('-', '');
     const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
     const category = categoryId > 0 ? `category=${categoryId}` : '';
+    const search = searchValue ? `&search=${searchValue}` : '';
 
     fetch(
-      `https://641c6665b556e431a86db242.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`
+      `https://641c6665b556e431a86db242.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}${search}`
     )
       .then(res => {
         return res.json();
@@ -31,7 +32,22 @@ export const Home = () => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, sortType]);
+  }, [categoryId, sortType, searchValue]);
+
+  const pizzas = items.map(obj => (
+    <PizzaBlock
+      key={obj.id}
+      id={obj.id}
+      title={obj.title}
+      price={obj.price}
+      imageUrl={obj.imageUrl}
+      sizes={obj.sizes}
+      types={obj.types}
+    />
+  ));
+  const skeleton = [...new Array(8)].map((_, index) => (
+    <Skeleton key={index} />
+  ));
 
   return (
     <div className='container'>
@@ -43,21 +59,7 @@ export const Home = () => {
         <Sort value={sortType} onChangeSort={i => setSortType(i)} />
       </div>
       <h2 className='content__title'>Всі піци</h2>
-      <div className='content__items'>
-        {isLoading
-          ? [...new Array(8)].map((_, index) => <Skeleton key={index} />)
-          : items.map(obj => (
-              <PizzaBlock
-                key={obj.id}
-                id={obj.id}
-                title={obj.title}
-                price={obj.price}
-                imageUrl={obj.imageUrl}
-                sizes={obj.sizes}
-                types={obj.types}
-              />
-            ))}
-      </div>
+      <div className='content__items'>{isLoading ? skeleton : pizzas}</div>
     </div>
   );
 };
