@@ -8,6 +8,9 @@
   width: 400px;
   border-radius: 10px;
   font-size: 16px;
+  @media (max-width: 460px) {
+    width: 300px;
+  }
 
   &:focus {
     border: 1px solid rgba(0, 0, 0, 0.4);
