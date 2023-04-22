@@ -64,6 +64,7 @@ export const Home = () => {
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryId, sort.sortProperty, currentPage]);
 
   useEffect(() => {
@@ -82,6 +83,7 @@ export const Home = () => {
       );
       isSearch.current = true;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -91,6 +93,7 @@ export const Home = () => {
     }
 
     isSearch.current = false;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
   const pizzas = items.map(obj => (
