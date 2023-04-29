@@ -8,6 +8,7 @@ import { SearchContext } from '../App';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
+  initialState,
   setCategoryId,
   setCurrentPage,
   setFilters,
@@ -70,6 +71,10 @@ export const Home = () => {
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
+
+      if (Object.values(params).join() === Object.values(initialState).join()) {
+        fetchPizzas();
+      }
 
       const sort = sortList.find(
         obj => obj.sortProperty === params.sortProperty
