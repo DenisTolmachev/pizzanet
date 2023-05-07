@@ -36,7 +36,7 @@ export const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const fetchPizzas = () => {
+  const fetchPizzas = async () => {
     setIsLoading(true);
 
     const sortBy = sort.sortProperty.replace('-', '');
@@ -44,14 +44,11 @@ export const Home = () => {
     const category = categoryId > 0 ? `category=${categoryId}` : '';
     const search = searchValue ? `&search=${searchValue}` : '';
 
-    axios
-      .get(
-        `https://641c6665b556e431a86db242.mockapi.io/items?page=${currentPage}&limit=8&${category}&sortBy=${sortBy}&order=${order}${search}`
-      )
-      .then(res => {
-        setItems(res.data);
-        setIsLoading(false);
-      });
+    const res = await axios.get(
+      `https://641c6665b556e431a86db242.mockapi.io/items?page=${currentPage}&limit=8&${category}&sortBy=${sortBy}&order=${order}${search}`
+    );
+    setItems(res.data);
+    setIsLoading(false);
   };
 
   useEffect(() => {
