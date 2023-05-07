@@ -44,11 +44,17 @@ export const Home = () => {
     const category = categoryId > 0 ? `category=${categoryId}` : '';
     const search = searchValue ? `&search=${searchValue}` : '';
 
-    const res = await axios.get(
-      `https://641c6665b556e431a86db242.mockapi.io/items?page=${currentPage}&limit=8&${category}&sortBy=${sortBy}&order=${order}${search}`
-    );
-    setItems(res.data);
-    setIsLoading(false);
+    try {
+      const res = await axios.get(
+        `https://641c6665b556e431a86db242.mockapi.io/items?page=${currentPage}&limit=8&${category}&sortBy=${sortBy}&order=${order}${search}`
+      );
+      setItems(res.data);
+      setIsLoading(false);
+    } catch (err) {
+      setIsLoading(false);
+      alert('Помилка отримання даних');
+      console.log('ERROR', err);
+    }
   };
 
   useEffect(() => {
