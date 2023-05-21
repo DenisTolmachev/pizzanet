@@ -17,7 +17,7 @@ export const initialState = {
   status: 'loading',
 };
 
-const pizzaSlice = createSlice({
+export const pizzaSlice = createSlice({
   name: 'pizza',
   initialState,
   reducers: {
