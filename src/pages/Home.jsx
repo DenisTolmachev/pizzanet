@@ -121,9 +121,20 @@ export const Home = () => {
         <Sort />
       </div>
       <h2 className='content__title'>Всі піци</h2>
-      <div className='content__items'>
-        {status === 'loading' ? skeleton : pizzas}
-      </div>
+      {status === 'error' ? (
+        <div className='content__error-info'>
+          <h2>Упс, помилка :(</h2>
+          <p>
+            На жаль не вдалося отримати піци. Спробуйте повторити замовлення
+            трохи згодом.
+          </p>
+        </div>
+      ) : (
+        <div className='content__items'>
+          {status === 'loading' ? skeleton : pizzas}
+        </div>
+      )}
+
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
