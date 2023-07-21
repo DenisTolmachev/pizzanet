@@ -1,9 +1,13 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import axios from 'axios';
 
-export const FullPizza = () => {
-  const [pizza, setPizza] = useState();
+export const FullPizza: FC = () => {
+  const [pizza, setPizza] = useState<{
+    imageUrl: string;
+    title: string;
+    price: number;
+  }>();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -23,7 +27,7 @@ export const FullPizza = () => {
   }, [id, navigate]);
 
   if (!pizza) {
-    return 'Завантаження...';
+    return <>'Завантаження...'</>;
   }
 
   return (
